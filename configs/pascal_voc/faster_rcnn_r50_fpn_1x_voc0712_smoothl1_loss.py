@@ -2,7 +2,11 @@ _base_ = [
     '../_base_/models/faster_rcnn_r50_fpn.py', '../_base_/datasets/voc0712.py',
     '../_base_/default_runtime.py'
 ]
-model = dict(roi_head=dict(bbox_head=dict(num_classes=20)))
+model = dict(
+    roi_head=dict(
+        bbox_head=dict(num_classes=20),
+        loss_bbox=dict(type='SmoothL1Loss', loss_weight=1.0))
+    )
 # optimizer
 optimizer = dict(type='SGD', lr=0.01/8.0, momentum=0.9, weight_decay=0.0001)
 optimizer_config = dict(grad_clip=None)
